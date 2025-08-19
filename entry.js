@@ -1,27 +1,21 @@
+// entry.js
 import { openDB } from './db.js';
 
 const form = document.getElementById("entryForm");
+
 if (form) {
-  form.addEventListener("submit", function(e) {
+  form.addEventListener("submit", function (e) {
     e.preventDefault();
-    const entryDate = document.getElementById("entryDate");
-    const orderNo = document.getElementById("orderNo");
-    const item = document.getElementById("item");
-    const orderQty = document.getElementById("orderQty");
-    const producedQty = document.getElementById("producedQty");
-    const wasteQty = document.getElementById("wasteQty");
-    const operator = document.getElementById("operator");
-    const remark = document.getElementById("remark");
 
     const record = {
-      date: entryDate.value,
-      orderNo: orderNo.value.trim(),
-      item: item.value.trim(),
-      orderQty: +orderQty.value,
-      producedQty: +producedQty.value,
-      wasteQty: +wasteQty.value,
-      operator: operator.value.trim(),
-      remark: remark.value.trim()
+      date: document.getElementById("entryDate").value,
+      orderNo: document.getElementById("orderNo").value.trim(),
+      item: document.getElementById("item").value.trim(),
+      orderQty: +document.getElementById("orderQty").value,
+      producedQty: +document.getElementById("producedQty").value,
+      wasteQty: +document.getElementById("wasteQty").value,
+      operator: document.getElementById("operator").value.trim(),
+      remark: document.getElementById("remark").value.trim()
     };
 
     openDB(db => {
