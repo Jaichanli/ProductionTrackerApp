@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <h1 class="text-center mb-4">📊 Production Dashboard - Welcome, <span id="operatorName"></span></h1>
   <h1>📊 Production Dashboard</h1>
   <nav>
     <a href="index.html">➕ Add Entry</a>
@@ -24,10 +25,12 @@
   </section>
 
   <canvas id="performanceChart" width="600" height="400"></canvas>
-
+  const operator = localStorage.getItem("operator");
+  if (!operator) window.location.href = "login.html";
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script type="module" src="dashboard.js"></script>
   <script src="db.js"></script>
 </body>
 
 </html>
+
