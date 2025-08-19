@@ -1,0 +1,85 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
+  background: #f4f4f4;
+  color: #333;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+nav {
+  margin-bottom: 20px;
+}
+
+nav a {
+  margin-right: 15px;
+  text-decoration: none;
+  color: #007acc;
+  font-weight: bold;
+}
+
+form, #controls, #paginationControls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+input, button, select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #007acc;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005fa3;
+  cursor: pointer;
+}
+
+canvas {
+  max-width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+}
+
+#summaryPanel {
+  background-color: #f0f4f8;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+#summaryPanel span {
+  font-weight: bold;
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+thead {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}

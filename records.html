@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📁 Production Records</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>📁 Production Records</h1>
+  <nav>
+    <a href="entry.html">➕ Add Entry</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+  </nav>
+
+  <input type="text" id="searchInput" placeholder="🔍 Search by Order No or Operator">
+
+  <div id="paginationControls">
+    <button id="prevPage">⬅ Prev</button>
+    <span id="pageInfo">Page 1</span>
+    <button id="nextPage">Next ➡</button>
+    <button id="exportCSV">📤 Export CSV</button>
+  </div>
+
+  <table id="recordsTable">
+    <thead>
+      <tr>
+        <th data-sort="date">Date</th>
+        <th data-sort="orderNo">Order No</th>
+        <th data-sort="item">Item</th>
+        <th data-sort="orderQty">Order Qty</th>
+        <th data-sort="producedQty">Produced Qty</th>
+        <th data-sort="wasteQty">Waste Qty</th>
+        <th data-sort="operator">Operator</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script type="module" src="records.js"></script>
+</body>
+</html>
