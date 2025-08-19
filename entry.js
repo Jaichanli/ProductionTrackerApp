@@ -9,7 +9,7 @@ document.getElementById("entryForm").addEventListener("submit", function(e) {
   const producedQty = document.getElementById("producedQty");
   const wasteQty = document.getElementById("wasteQty");
   const operator = document.getElementById("operator");
-  const remark = document.getElementById("remark"); //
+  const remark = document.getElementById("remark");
   const record = {
     date: entryDate.value,
     orderNo: orderNo.value.trim(),
@@ -30,4 +30,5 @@ document.getElementById("entryForm").addEventListener("submit", function(e) {
     };
   });
 });
+
 
