@@ -1,4 +1,4 @@
-import { openDB } from './db.js';
+import { getAllEntries, restoreEntries } from './dbService.js';
 
 const operator = localStorage.getItem("operator");
 if (!operator) window.location.href = "login.html";
@@ -16,15 +16,16 @@ const summary = {
 const monthFilter = document.getElementById("monthFilter");
 const exportBtn = document.getElementById("exportBtn");
 
-openDB(db => {
-  const tx = db.transaction("entries", "readonly");
-  tx.objectStore("entries").getAll().onsuccess = e => {
-    allData = e.target.result;
-    populateMonthFilter();
-    renderChart();
-  };
+// Load data from IndexedDB
+getAllEntries().then(data => {
+  allData = data;
+  populateMonthFilter();
+  renderChart();
+}).catch(err => {
+  alert("❌ Failed to load data.");
 });
 
+// Populate month dropdown
 function populateMonthFilter() {
   const months = [...new Set(allData.map(e => e.date.slice(0, 7)))].sort();
   monthFilter.innerHTML = `<option value="">All Months</option>` +
@@ -44,6 +45,7 @@ function filteredData() {
   return m ? allData.filter(e => e.date.startsWith(m)) : allData;
 }
 
+// Render chart and summary
 function renderChart() {
   const data = filteredData();
   if (!data.length) return;
@@ -93,6 +95,7 @@ function renderChart() {
   });
 }
 
+// Backup to JSON
 document.getElementById("backupBtn").addEventListener("click", () => {
   const blob = new Blob([JSON.stringify(allData)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -103,6 +106,7 @@ document.getElementById("backupBtn").addEventListener("click", () => {
   URL.revokeObjectURL(url);
 });
 
+// Restore from JSON
 document.getElementById("restoreBtn").addEventListener("click", () => {
   document.getElementById("restoreInput").click();
 });
@@ -111,18 +115,12 @@ document.getElementById("restoreInput").addEventListener("change", e => {
   const file = e.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = () => {
+  reader.onload = async () => {
     try {
       const data = JSON.parse(reader.result);
-      openDB(db => {
-        const tx = db.transaction("entries", "readwrite");
-        const store = tx.objectStore("entries");
-        data.forEach(entry => store.put(entry));
-        tx.oncomplete = () => {
-          alert("✅ Data restored!");
-          location.reload();
-        };
-      });
+      await restoreEntries(data);
+      alert("✅ Data restored!");
+      location.reload();
     } catch {
       alert("❌ Invalid backup file.");
     }
