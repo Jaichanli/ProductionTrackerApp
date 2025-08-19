@@ -1,5 +1,9 @@
 import { openDB } from './db.js';
 
+const operator = localStorage.getItem("operator");
+if (!operator) window.location.href = "login.html";
+document.getElementById("operatorName").textContent = operator;
+
 let chart;
 let allData = [];
 
@@ -87,11 +91,10 @@ function renderChart() {
       }
     }
   });
-
 }
-document.getElementById("operatorName").textContent = operator;
+
 document.getElementById("backupBtn").addEventListener("click", () => {
-  const blob = new Blob([JSON.stringify(allEntries)], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(allData)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -126,4 +129,3 @@ document.getElementById("restoreInput").addEventListener("change", e => {
   };
   reader.readAsText(file);
 });
-
