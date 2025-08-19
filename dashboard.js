@@ -90,3 +90,40 @@ function renderChart() {
 
 }
 document.getElementById("operatorName").textContent = operator;
+document.getElementById("backupBtn").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(allEntries)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "backup.json";
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById("restoreBtn").addEventListener("click", () => {
+  document.getElementById("restoreInput").click();
+});
+
+document.getElementById("restoreInput").addEventListener("change", e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      openDB(db => {
+        const tx = db.transaction("entries", "readwrite");
+        const store = tx.objectStore("entries");
+        data.forEach(entry => store.put(entry));
+        tx.oncomplete = () => {
+          alert("✅ Data restored!");
+          location.reload();
+        };
+      });
+    } catch {
+      alert("❌ Invalid backup file.");
+    }
+  };
+  reader.readAsText(file);
+});
+
