@@ -1,3 +1,4 @@
+// db.js
 export function openDB(callback) {
   const request = indexedDB.open("ProductionDB", 1);
 
