@@ -81,6 +81,7 @@ exportBtn.addEventListener("click", () => {
 function renderTable() {
   const start = (currentPage - 1) * pageSize;
   const pageData = filteredEntries.slice(start, start + pageSize);
+
   tableBody.innerHTML = pageData.map(entry => `
     <tr>
       <td><input value="${entry.date}" data-field="date" data-id="${entry.orderNo}"></td>
@@ -90,5 +91,10 @@ function renderTable() {
       <td><input type="number" value="${entry.producedQty}" data-field="producedQty" data-id="${entry.orderNo}"></td>
       <td><input type="number" value="${entry.wasteQty}" data-field="wasteQty" data-id="${entry.orderNo}"></td>
       <td><input value="${entry.operator}" data-field="operator" data-id="${entry.orderNo}"></td>
-      <td>
+      <td><button data-id="${entry.orderNo}" class="saveBtn">💾 Save</button></td>
+    </tr>
+  `).join("");
+
+  pageInfo.textContent = `Page ${currentPage} of ${Math.ceil(filteredEntries.length / pageSize)}`;
+}
        
