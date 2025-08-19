@@ -87,4 +87,6 @@ function renderChart() {
       }
     }
   });
+
 }
+document.getElementById("operatorName").textContent = operator;
